@@ -8,12 +8,11 @@
 
 <body>
     <?php
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
+
 
     //Script 3.3 handle_form.php
     //This page receives the data from feedback.html
-    //It will receive, comments, and submit in &_POST.
+    //It will receive, comment, and submit in &_POST.
 
     $title= $_POST['title'];
     $name1= $_POST['name1'];
