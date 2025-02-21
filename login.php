@@ -2,7 +2,7 @@
 
 
 define ('TITLE', 'Login');
-include 'templates\header3.html';
+include 'H:\XAMPP\htdocs\header3.html';
 
 print '<h2> Login Form</h2>
     <p>Users who are logged in can take advantages of
@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] =='POST') {
     if (!empty($_POST['email']) && (!empty($_POST['password']))) {
 
         if ((strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass')) {
+
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['loggedin'] = time();
 
             ob_end_clean();
             header('Location: welcome.php');
@@ -33,9 +37,9 @@ else {
     print '<form action="login.php" method="post" class="form--inline">
     <p><label for="email">Email Address:</label><input type="email" name="email" size="20"></p>
     <p><label for="password">Password:</label><input type="password" name="password" size="20"</p>
-    <p><input type="submit" name="submit" value ="log in" class="button--pill"></p></form>';
+    <p><input type="submit" name="submit" value ="log in!" class="button--pill"></p></form>';
 }
 
-include 'H:\XAMPP\htdocs\templates\footer3.html';
+include 'H:\XAMPP\htdocs\footer3.html';
 
 ?>
