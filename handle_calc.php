@@ -1,59 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Product Cost Calculator</title>
 
-        <style type="text/css">
-            .number {font-weight: bold;}
-        </style>
-    </head>
-    <body>
-        <?php //Script 4.2 - handle_calc class="php"
+<?php
+    define ('TITLE', 'Calculate');
+    include 'templates\header.html';
+?>
 
-        // Get the values from the $_POST array:
-        $price = $_POST['price'];
-        $quantity = $_POST['quantity'];
-        $discount = $_POST['discount'];
-        $tax = $_POST['tax'];
-        $shipping = $_POST['shipping'];
-        $payments = $_POST['payments'];
+    <h1>Calculate</h1>
+    <p>Enter the student scores:</p>
 
-        // Calculate the total:
-        $total = $price * $quantity;
-        $total = $total + $shipping;
-        $total = $total - $discount;
+    
+    <form action=handle_calc.php method="post">
+        <p>Math: <input type="text" name="math" size="30"></p>
+        <p>English: <input type = "text" name="english" size="30"></p>
+        <p>Science: <input type="text" name="science" size="30"></p>
+        <p>Social Studies: <input type="text" name="socialStudies" size="30"></p>
+        <input type="submit" name="submit" value="Calculate Scores">
+    </form>
+    
+    
+<?php
 
-        // Determine the tax rate:
-        $taxrate = $tax / 100;
-        $taxrate = $taxrate + 1;
+$problem = false;
 
-        //Factor in the tax rate:
-        $total = $total - $taxrate;
+//Perform math using PHP code.
+if ($_SERVER['REQUEST_METHOD'] =='POST') {
 
-        // Calculate the monthly payments:
-        $monthly = $total / $payments;
+    if (!empty($_POST['math']) && !empty($_POST['english']) && !empty($_POST['science']) && !empty($_POST['socialStudies'])) {
+
+        if (is_numeric($_POST['math']) && is_numeric($_POST['english']) && is_numeric($_POST['science']) && is_numeric($_POST['socialStudies'])) {
+
+            //Use of an array.
+            $math = $_POST['math'];
+            $english = $_POST['english'];
+            $science = $_POST['science'];
+            $socialStudies = $_POST['socialStudies'];
+    
+    
+            $scores = $math + $english + $science + $socialStudies;
+            $total = $scores / 400;
+    
+            $percentage = sprintf("%.2f%%", $total * 100);
+    
+    
+            print '<p>The total is ' . $scores . '<br>'. $percentage. '</p>';
+
+        } else {
+            print 'Error! Please enter the correct scores';
+
+        }
+
+    
+
+    
+    } else {
+        print 'Error! Please enter the correct scores ';
+        $problem = true;
+
+    }
 
 
-        print "<p> You have selected to purchase: <br>
-        purchase: <br>
-        <span class=\"number\">$quantity
-            </span> widget(s) at <br>
-        <span class=\"number\"> $price
-            </span> price each plus a <br>
-        <span class=\"number\"> $shipping
-            </span> shipping cost and a <br>
-        <span class=\"number\">$tax
-            </span> percent tax rate. <br>
-        After your $<spam class=\"number\"
-            >$discount</spam> discount, the total cost is $
-        <spam class=\"number\"> $total
-            </span>.<br>
-        Divide over <span class=\"number\"$payments
-            </span> monthly payments, that would be $
-        <span class+\"number\"> $monthly</span> each.</p>";
-        
+    
 
-        ?>
-    </body>
-</html>
+}
+
+
+
+include 'H:\XAMPP\htdocs\templates\footer.html';
+
+
+?>
